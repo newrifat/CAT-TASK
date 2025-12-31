@@ -42,19 +42,24 @@ A modern Selenium WebDriver automation framework for end-to-end testing of [Dara
 git clone <your-repo-url>
 cd CANT-TASK
 
-# 2. Restore dependencies
+# 2. Restore dependencies (installs Selenium, NUnit, etc.)
 dotnet restore
 
-# 3. Configure credentials
+# 3. Build project
+dotnet build
+
+# 4. Configure credentials
 cp src/Config/appsettings.example.json src/Config/appsettings.json
 # Edit src/Config/appsettings.json with your Daraz credentials
 
-# 4. Run tests
+# 5. Run tests
 dotnet test
 
-# 5. View reports
+# 6. View reports
 open Reports/ExtentReport_*.html
 ```
+
+> 💡 **First Time?** The framework automatically downloads the correct ChromeDriver version. Just run `dotnet restore` and you're ready!
 
 ---
 
@@ -76,6 +81,68 @@ open Reports/ExtentReport_*.html
 ```bash
 dotnet --version  # Should show 9.0.x or higher
 ```
+
+### Dependencies
+
+All required NuGet packages are defined in `DarazAutomation.csproj` and will be automatically installed via `dotnet restore`:
+
+#### Core Packages
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| **Selenium.WebDriver** | 4.39.0 | Browser automation core |
+| **Selenium.Support** | 4.39.0 | WebDriver support classes |
+| **Selenium.WebDriver.ChromeDriver** | 143.x | ChromeDriver for Chrome automation |
+| **DotNetSeleniumExtras.WaitHelpers** | 3.11.0 | Enhanced wait conditions |
+
+#### Testing Framework
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| **NUnit** | 4.2.2 | Test framework |
+| **NUnit3TestAdapter** | 4.6.0 | Test adapter for Visual Studio/CLI |
+| **NUnit.Analyzers** | 4.4.0 | Code analysis for tests |
+| **Microsoft.NET.Test.Sdk** | 17.12.0 | Test SDK for .NET |
+
+#### Reporting & Configuration
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| **ExtentReports** | 5.0.4 | HTML test reports with screenshots |
+| **Microsoft.Extensions.Configuration.Json** | 10.0.1 | JSON configuration management |
+| **WebDriverManager** | 2.17.4 | Automatic driver management |
+
+### Installation Steps
+
+**1. Clone the repository:**
+```bash
+git clone <your-repo-url>
+cd CANT-TASK
+```
+
+**2. Restore all NuGet packages:**
+```bash
+dotnet restore
+```
+
+This will automatically download and install:
+- Selenium WebDriver and ChromeDriver
+- NUnit test framework
+- ExtentReports for reporting
+- All other dependencies
+
+**3. Verify build:**
+```bash
+dotnet build
+```
+
+**4. Configure test credentials:**
+```bash
+cp src/Config/appsettings.example.json src/Config/appsettings.json
+# Edit src/Config/appsettings.json with your Daraz credentials
+```
+
+> 💡 **Note:** The framework uses **WebDriverManager** to automatically download and manage the correct ChromeDriver version for your Chrome browser. No manual driver installation needed!
 
 ---
 
