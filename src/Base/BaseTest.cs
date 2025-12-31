@@ -10,7 +10,6 @@ namespace DarazAutomation.Base
     /// <summary>
     /// Base class for all test classes
     /// Handles WebDriver lifecycle, setup, and teardown
-    /// Loads .env file for environment variable configuration
     /// </summary>
     [TestFixture]
     public abstract class BaseTest
@@ -19,15 +18,6 @@ namespace DarazAutomation.Base
         protected IWebDriver Driver { get; private set; } = null!;
         protected ExtentReportManager ReportManager { get; private set; } = null!;
         protected virtual bool ReuseSession => false;
-
-        /// <summary>
-        /// Static constructor to load .env file before any tests run
-        /// </summary>
-        static BaseTest()
-        {
-            // Load .env file if it exists (optional, falls back to environment variables or appsettings.json)
-            DotEnvLoader.Load();
-        }
 
         [OneTimeSetUp]
         public virtual void OneTimeSetUp()
