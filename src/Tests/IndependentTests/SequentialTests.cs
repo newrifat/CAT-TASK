@@ -153,43 +153,5 @@ namespace DarazAutomation.Tests.IndependentTests
             _testFlowHelper.PerformCompleteCheckoutFlow();
         }
 
-        // ===============================================================================
-        // OPTIONAL: Data-Driven Test Example using [TestCaseSource]
-        // ===============================================================================
-        // Uncomment the test below to run all test cases from CategoryNavigationTestData
-        // This demonstrates how to extend the framework for multiple category tests
-        // ===============================================================================
-        
-        /*
-        /// <summary>
-        /// Data-driven test that runs for all test cases defined in CategoryNavigationTestData.
-        /// This test can be used to add products from multiple categories in a single parameterized test.
-        /// Uncomment and adjust [Order] attribute as needed.
-        /// </summary>
-        [Test]
-        [Category("DataDriven")]
-        [TestCaseSource(typeof(CategoryNavigationTestData), nameof(CategoryNavigationTestData.AddProductToCartTestCases))]
-        public void AddProductToCart_DataDriven(string level1, string level2, string level3, string urlKeyword, CategoryNavigationTestData.ProductSelector selector, bool useProductPage)
-        {
-            _testFlowHelper.NavigateAndAddProductToCart(level1, level2, level3, urlKeyword, selector, useProductPage);
-        }
-
-        /// <summary>
-        /// Data-driven test for category navigation only (without adding products).
-        /// Useful for smoke testing category navigation across multiple categories.
-        /// </summary>
-        [Test]
-        [Category("DataDriven")]
-        [Category("Navigation")]
-        [TestCaseSource(typeof(CategoryNavigationTestData), nameof(CategoryNavigationTestData.CategoryNavigationTestCases))]
-        public void NavigateToCategory_DataDriven(string level1, string level2, string level3, string urlKeyword)
-        {
-            _testFlowHelper.EnsureUserIsLoggedIn();
-            _testFlowHelper.NavigateToCategory(level1, level2, level3, urlKeyword);
-            _testFlowHelper.VerifyProductsAvailable(level3);
-            Assert.That(_loginPage.IsUserLoggedIn(), Is.True, 
-                $"User should remain logged in after navigating to {level3}");
-        }
-        */
     }
 }
