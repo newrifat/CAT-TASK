@@ -41,14 +41,15 @@ namespace DarazAutomation.Utilities
             try
             {
                 string currentUrl = _driver.Url.ToLower();
-                bool isOnDarazPage = currentUrl.Contains("daraz.com.bd");
+                bool isOnDarazPage = currentUrl.Contains(ConfigurationManager.Domain);
                 
                 if (!isOnDarazPage)
                 {
                     _homePage.NavigateToHomePage();
                 }
                 
-                bool isOnLoginPage = currentUrl.Contains("/login") || currentUrl.Contains("member.daraz");
+                bool isOnLoginPage = currentUrl.Contains(ConfigurationManager.LoginPagePattern) 
+                    || currentUrl.Contains(ConfigurationManager.MemberPagePattern);
                 bool isLoggedIn = !isOnLoginPage && _loginPage.IsUserLoggedIn();
                 
                 if (isLoggedIn) return;
@@ -157,10 +158,9 @@ namespace DarazAutomation.Utilities
             string voucherMessage = _cartPage.GetPaymentVoucherMessageText();
             Assert.That(voucherMessage, Is.Not.Empty, "Payment voucher message text should not be empty");
 
-            bool voucherMessageMatches = _cartPage.VerifyPaymentVoucherMessage(
-                "Collect payment voucher & get extra savings on your purchase!");
+            bool voucherMessageMatches = _cartPage.VerifyPaymentVoucherMessage(ConfigurationManager.PaymentVoucherMessage);
             Assert.That(voucherMessageMatches, Is.True,
-                "Payment voucher message should match: 'Collect payment voucher & get extra savings on your purchase!'");
+                $"Payment voucher message should match: '{ConfigurationManager.PaymentVoucherMessage}'");
         }
 
         /// <summary>

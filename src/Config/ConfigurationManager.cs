@@ -56,6 +56,7 @@ namespace DarazAutomation.Config
         #region Application URLs
         
         public static string BaseUrl => GetConfigValue("Application:BaseUrl", "https://www.daraz.com.bd");
+        public static string Domain => GetConfigValue("Application:Domain", "daraz.com.bd");
         public static string HomeEndpoint => GetConfigValue("Application:Endpoints:Home", "/");
         public static string LoginEndpoint => GetConfigValue("Application:Endpoints:Login", "/customer/account/login");
         public static string CartEndpoint => GetConfigValue("Application:Endpoints:Cart", "/cart");
@@ -65,6 +66,12 @@ namespace DarazAutomation.Config
         public static string LoginUrl => $"{BaseUrl}{LoginEndpoint}";
         public static string CartUrl => $"{BaseUrl}{CartEndpoint}";
         public static string CheckoutUrl => $"{BaseUrl}{CheckoutEndpoint}";
+        
+        public static string LoginPagePattern => GetConfigValue("Application:UrlPatterns:LoginPage", "/login");
+        public static string MemberPagePattern => GetConfigValue("Application:UrlPatterns:MemberPage", "member.daraz");
+        
+        public static string PaymentVoucherMessage => GetConfigValue("Application:Messages:PaymentVoucherPromo", 
+            "Collect payment voucher & get extra savings on your purchase!");
         
         #endregion
 

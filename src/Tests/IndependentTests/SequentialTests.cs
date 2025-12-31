@@ -41,18 +41,24 @@ namespace DarazAutomation.Tests.IndependentTests
             Assert.That(_homePage.IsPageLoaded(), Is.True, "Home page should be loaded");
 
             string currentLang = _homePage.GetCurrentLanguage();
-            if (currentLang.Contains("বাংলা") || currentLang.ToLower().Contains("bangla"))
+            string banglaDisplayName = ConfigurationManager.BanglaText;
+            string englishDisplayName = ConfigurationManager.EnglishText;
+            
+            // Ensure we start from English if currently in Bangla
+            if (currentLang.Contains(banglaDisplayName) || currentLang.ToLower().Contains(ConfigurationManager.BanglaCode))
             {
-                _homePage.ChangeLanguageTo("English");
+                _homePage.ChangeLanguageTo(englishDisplayName);
             }
 
-            _homePage.ChangeLanguageTo("Bangla");
+            // Switch to Bangla and verify
+            _homePage.ChangeLanguageTo(banglaDisplayName);
             bool isBanglaVerified = _homePage.VerifyLanguageChanged(ConfigurationManager.BanglaVerificationText);
-            Assert.That(isBanglaVerified, Is.True, "Language should be changed to Bangla");
+            Assert.That(isBanglaVerified, Is.True, $"Language should be changed to {banglaDisplayName}");
 
-            _homePage.ChangeLanguageTo("English");
+            // Switch back to English and verify
+            _homePage.ChangeLanguageTo(englishDisplayName);
             bool isEnglishVerified = _homePage.VerifyLanguageChanged(ConfigurationManager.EnglishVerificationText);
-            Assert.That(isEnglishVerified, Is.True, "Language should be changed back to English");
+            Assert.That(isEnglishVerified, Is.True, $"Language should be changed back to {englishDisplayName}");
         }
 
         [Test, Order(2)]
@@ -104,8 +110,9 @@ namespace DarazAutomation.Tests.IndependentTests
         [Category("Critical")]
         public void Test5_MultiLevelCategoryNavigation_WomensWallets()
         {
+            var testData = CategoryNavigationTestData.GetTestCase(0);
             _testFlowHelper.EnsureUserIsLoggedIn();
-            _testFlowHelper.NavigateToCategory("Women's & Girls' Fashion", "Bags", "Wallets", "wallets");
+            _testFlowHelper.NavigateToCategory(testData.Level1, testData.Level2, testData.Level3, testData.UrlKeyword);
             Assert.That(_loginPage.IsLoginSuccessful(), Is.True, "User should remain logged in after category navigation");
         }
 
